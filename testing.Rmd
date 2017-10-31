@@ -7,6 +7,8 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(metabroom)
 ```
 
 ## Testing area
@@ -14,10 +16,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Example dataset
 
 ```{r Get a test model}
-library(magrittr)
+# Hmmm. What's best practice for loading %>% in packages? What's best practice for package dependencies?
+library(tidyverse)
+library(metafor)
 
-example_ma <- data("dat.normand1999", package = "metafor") %>% # NB: slab (i.e., study) := "source".
-  get() %>% # Get an example dataset.
+example_ma <- data("dat.normand1999", package = "metafor") %>% # Get an example dataset.
+  get() %>% # NB: slab (i.e., study) := "source".
   metafor::escalc( # Calculate effect.
     measure = "SMD",
     n1i = n1i,
@@ -36,5 +40,23 @@ example_ma <- data("dat.normand1999", package = "metafor") %>% # NB: slab (i.e.,
 example_ma %>% 
   metafor::forest()
 
+```
+
+### `augment`
+
+```{r augment}
+example_ma %>% augment()
+```
+
+### `tidy`
+
+```{r tidy}
+example_ma %>% tidy()
+```
+
+### `glance`
+
+```{r glance}
+example_ma %>% glance()
 ```
 
