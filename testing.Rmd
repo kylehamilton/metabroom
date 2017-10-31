@@ -9,6 +9,15 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 
 library(metabroom)
+library(tidyverse)
+
+```
+
+```{r Load packages}
+# Hmmm. What's best practice for loading %>% in packages? What's best practice for package dependencies?
+library(metafor)
+library(metabroom)
+library(tidyverse)
 ```
 
 ## Testing area
@@ -16,12 +25,6 @@ library(metabroom)
 ### Get example dataset
 
 ```{r Get a test model}
-# Adding this comment so that I'll can commit a message with heaps of emoji. 
-
-# Hmmm. What's best practice for loading %>% in packages? What's best practice for package dependencies?
-library(tidyverse)
-library(metafor)
-
 example_ma <- data("dat.normand1999", package = "metafor") %>% # Get an example dataset.
   get() %>% # NB: slab (i.e., study) := "source".
   metafor::escalc( # Calculate effect.

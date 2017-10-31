@@ -4,7 +4,7 @@ metabroom
 
 The goal of metabroom is to `broom` meta-analysis models produced by `metafor`. That is, when I finish it.
 
-See the `testing` file to see where I'm at.
+See the **testing** file to see where I'm at.
 
 Example
 -------
