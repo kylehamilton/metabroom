@@ -22,13 +22,56 @@ See the `testing` file to see where I'm at.
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+### Get example dataset
 
-```{r example}
-## basic example code
+```{r Get a test model}
+# Hmmm. What's best practice for loading %>% in packages? What's best practice for package dependencies?
+library(tidyverse)
+library(metafor)
+library(metabroom)
 
-# Yeah, I wouldn't touch any code I haven't looked at in the last few weeks. It has a life of its own.
+example_ma <- data("dat.normand1999", package = "metafor") %>% # Get an example dataset.
+  get() %>% # NB: slab (i.e., study) := "source".
+  metafor::escalc( # Calculate effect.
+    measure = "SMD",
+    n1i = n1i,
+    m1i =m1i,
+    sd1i = sd1i,
+    n2i = n2i,
+    m2i = m2i,
+    sd2i = sd2i,
+    data = .
+  ) %>% 
+  metafor::rma( # Meta-analyse!
+    slab = source
+  ) 
+
+# Check all is as it should be.
+example_ma %>% 
+  metafor::forest()
 
 ```
 
+```{r}
+library(tidyverse)
+```
+
+
+### `augment`
+
+```{r augment}
+example_ma %>% augment()
+```
+
+### `tidy`
+
+```{r tidy}
+example_ma %>% tidy()
+```
+
+### `glance`
+
+```{r glance}
+example_ma %>% glance()
+```
 

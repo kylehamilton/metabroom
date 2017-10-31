@@ -13,7 +13,7 @@ library(metabroom)
 
 ## Testing area
 
-### Example dataset
+### Get example dataset
 
 ```{r Get a test model}
 # Hmmm. What's best practice for loading %>% in packages? What's best practice for package dependencies?
