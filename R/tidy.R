@@ -15,7 +15,7 @@
 #'
 #' @export
 
-tidy <- function(x) {
+tidy <- function(df) {
   # We take our brief from the broom vignette:
   # http://onlinelibrary.wiley.com/doi/10.1359/JBMR.0301265/full
   #
@@ -24,12 +24,13 @@ tidy <- function(x) {
   # regression, per-cluster information in clustering applications, or per-test
   # information for multtest functions.
 
-  tibble(
-    coef = x$b %>% as.numeric(),
-    se = x$se,
-    z = x$zval,
-    p = x$pval,
-    ci_lb = x$ci.lb,
-    ci_ub = x$ci.ub
-  )
+  df %>% {
+    tibble(
+      coef = .$b %>% as.numeric(),
+      se = .$se,
+      p_value = .$pval,
+      ci_lb = .$ci.lb,
+      ci_ub = .$ci.ub,
+      tau2 = .$tau2
+  )}
 }
