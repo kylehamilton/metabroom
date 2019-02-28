@@ -15,4 +15,5 @@ predictions, residuals and cluster assignments.
 }
 \details{
 As far as I can see, there is no way to call the original dataframe from the
+- unfinished, needs troubleshooting.
 }

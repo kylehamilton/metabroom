@@ -26,8 +26,8 @@ tidy <- function(df) {
 
   df %>% {
     tibble(
-      coef = .$b %>% as.numeric(),
-      se = .$se,
+      effect = .$b %>% as.numeric(),
+      effect_se = .$se,
       p_value = .$pval,
       ci_lb = .$ci.lb,
       ci_ub = .$ci.ub,
