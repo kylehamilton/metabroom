@@ -15,7 +15,7 @@
 #'
 #' @export
 
-tidy <- function(df) {
+tidy <- function(rma) {
   # We take our brief from the broom vignette:
   # http://onlinelibrary.wiley.com/doi/10.1359/JBMR.0301265/full
   #
@@ -24,13 +24,13 @@ tidy <- function(df) {
   # regression, per-cluster information in clustering applications, or per-test
   # information for multtest functions.
 
-  df %>% {
-    tibble(
-      effect = .$b %>% as.numeric(),
-      effect_se = .$se,
-      p_value = .$pval,
-      ci_lb = .$ci.lb,
-      ci_ub = .$ci.ub,
-      tau2 = .$tau2
+  rma %>% {
+    tibble::tibble(
+      effect = purrr::pluck(., "b") %>% as.numeric(),
+      effect_se = purrr::pluck(., "se"),
+      p_value = purrr::pluck(., "pval"),
+      ci_lb = purrr::pluck(., "ci.lb"),
+      ci_ub = purrr::pluck(., "ci.ub"),
+      tau2 = purrr::pluck(., "tau2")
   )}
 }

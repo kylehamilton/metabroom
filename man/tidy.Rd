@@ -4,7 +4,7 @@
 \alias{tidy}
 \title{Tidy the result of a meta-analysis into a summary data.frame.}
 \usage{
-tidy(df)
+tidy(rma)
 }
 \arguments{
 \item{x}{A meta-analysis model produced by metafor's rma function.}
