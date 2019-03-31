@@ -1,9 +1,13 @@
 Package: metabroom
 Title: broom methods for metafor::rma models
 Version: 0.0.0.9000
-Authors@R: person("Malcolm", "Barrett", 
-    email = "malcolmbarrett@gmail.com", 
-    role = c("aut", "cre"))
+Authors@R: c(
+    person("Malcolm", "Barrett", 
+      email = "malcolmbarrett@gmail.com", 
+      role = c("aut", "cre")),
+    person("Charles", "Gray", 
+      email = "charlestigray@gmail.com", 
+      role = "ctb"))
 Maintainer: Malcolm Barrett <malcolmbarrett@gmail.com>
 Description: These methods were originally part of the [tidymeta::] 
   by Malcolm. Charles wanted to learn about dev and had some tweaks 
