@@ -28,18 +28,6 @@ example_ma %>%
 
 ![](README-Get%20a%20test%20model-1.png)
 
-``` r
-library(tidyverse)
-#> ── Attaching packages ───────────────────────── tidyverse 1.2.1.9000 ──
-#> ✔ ggplot2 3.1.0.9000     ✔ purrr   0.3.1     
-#> ✔ tibble  2.1.1.9000     ✔ dplyr   0.8.0.9002
-#> ✔ tidyr   0.8.1          ✔ stringr 1.3.1     
-#> ✔ readr   1.1.1          ✔ forcats 0.3.0
-#> ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
-```
-
 ### `augment`
 
 ``` r

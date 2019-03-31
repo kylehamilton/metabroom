@@ -38,11 +38,6 @@ example_ma %>%
 
 ```
 
-```{r}
-library(tidyverse)
-```
-
-
 ### `augment`
 
 ```{r augment}
