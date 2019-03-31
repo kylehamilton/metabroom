@@ -1,30 +1,46 @@
-#' Construct a single-row summary "glance" of a meta-analysis model.
+#' Construct a one-row summary of meta-analysis model fit statistics.
 #'
-#' This function is analogous to the broom::tidy function but for meta-analysis
-#' models.
-
-#' glance methods always return either a one-row data frame, or NULL.
+#' `glance()` computes a one-row summary of  meta-analysis objects,
+#'  including estimates of heterogenity and model fit.
 #'
-#' @param x A meta-analysis model produced by metafor's rma function.
+#' @param x a meta-analysis object. Currently supports `rma.uni` from the
+#'   `metafor` package.
+#' @param ... additional arguments
 #'
+#' @return a `data.frame`
 #' @export
-
-glance <- function(x) {
-  tibble(
+#'
+#' @examples
+#'
+#' library(broom)
+#' library(metafor)
+#' rma(yi = lnes, sei = selnes, slab = study_name, data = iud_cxca) %>%
+#'   glance()
+#'
+glance.rma.uni <- function(x, ...) {
+  fit_stats <- metafor::fitstats(x)
+  fit_stats <- fit_stats %>%
+    t() %>%
+    as.data.frame()
+  names(fit_stats) <-
+    stringr::str_replace(names(fit_stats), "\\:", "")
+  data.frame(
+    k = x$k,
     measure = x$measure,
-    tau2 = x$tau2,
-    se_tau2 = x$se.tau2,
     method = x$method,
-    no_studies = x$k,
-    no_coef = x$p,
-    I2 = x$I2,
-    H2 = x$H2,
+    effect = as.numeric(x$beta),
+    ci.lb = x$ci.lb,
+    ci.ub = x$ci.ub,
+    i.squared = x$I2,
+    h.squared = x$H2,
+    tau.squared = x$tau2,
+    tau.squared.se = x$se.tau2,
     QE = x$QE,
     QE_p = x$QEp,
     QM = x$QM,
-    QM_p = x$QMp
+    QM_p = x$QMp,
+    fit_stats
   ) %>%
-    cbind(x$fit.stats %>% select(REML) %>% t()) %>%
-    rownames_to_column("remove_this") %>%
-    select(-remove_this)
+    tibble::rownames_to_column("remove") %>%
+    select(-remove)
 }

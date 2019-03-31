@@ -1,36 +1,57 @@
-#' Tidy the result of a meta-analysis into a summary data.frame.
+#' Tidying methods for meta-analyis objects
 #'
-#' This function is analogous to the broom::tidy function but for meta-analysis
-#' models.
+#' These methods tidy the results of meta-analysis objects
 #'
-#' From the broom tidy documentation:
-#' The output of tidy is always a data.frame with disposable row names.
-#' It is therefore suited for further manipulation by packages like dplyr,
-#' reshape2, ggplot2 and ggvis.
+#' @param x a meta-analysis object. Currently supports `rma.uni` from the
+#'   `metafor` package.
+#' @param conf.int logical. Include confidence intervals?
+#' @param exponentiate logical. Should the estimates and (if `conf.int` =
+#'   `TRUE`) confidence intervals be exponentiated?
+#' @param include_studies logical. Should individual studies be included in the
+#'    output?
+#' @param ... additional arguments
+#' @param measure measure type. See [metafor::rma()]
 #'
-#' This aims to produce a data frame that summarises the model's statistical
-#' findings.
-#'
-#' @param x A meta-analysis model produced by metafor's rma function.
-#'
+#' @return a `data.frame`
 #' @export
+#'
+#' @examples
+#' library(broom)
+#' library(metafor)
+#' rma(yi = lnes, sei = selnes, slab = study_name, data = iud_cxca) %>%
+#'   tidy()
+#'
+#' @rdname tidiers
+tidy.rma.uni <- function(x, conf.int = TRUE, exponentiate = FALSE,
+                         include_studies = TRUE, measure = "GEN", ...) {
+  if (!inherits(x, "rma.uni")) stop("`x` must be of class `rma.uni`")
 
-tidy <- function(rma) {
-  # We take our brief from the broom vignette:
-  # http://onlinelibrary.wiley.com/doi/10.1359/JBMR.0301265/full
-  #
-  # tidy: constructs a data frame that summarizes the model's statistical
-  # findings. This includes coefficients and p-values for each term in a
-  # regression, per-cluster information in clustering applications, or per-test
-  # information for multtest functions.
+  estimates <- metafor::escalc(yi = x$yi.f, vi = x$vi.f, measure = measure) %>%
+    metafor2df()
 
-  rma %>% {
-    tibble::tibble(
-      effect = purrr::pluck(., "b") %>% as.numeric(),
-      effect_se = purrr::pluck(., "se"),
-      p_value = purrr::pluck(., "pval"),
-      ci_lb = purrr::pluck(., "ci.lb"),
-      ci_ub = purrr::pluck(., "ci.ub"),
-      tau2 = purrr::pluck(., "tau2")
-  )}
+  estimates <- cbind(x$slab, "study", estimates[, c("yi", "sei", "zi")], NA,
+                     estimates[, c("ci.lb", "ci.ub")], stringsAsFactors = FALSE)
+  names(estimates) <- c("study", "type", "estimate", "std.error", "statistic",
+                        "p.value", "conf.low", "conf.high")
+
+  results <- data.frame(study = "Overall", type = "summary",
+                          estimate = x$beta[1], std.error = x$se,
+                          statistic = x$zval, p.value = x$pval,
+                          conf.low = x$ci.lb, conf.high = x$ci.ub,
+                          stringsAsFactors = FALSE)
+  .data <- if (include_studies) rbind(estimates, results) else results
+
+  if (exponentiate) {
+      .data$estimate <- exp(.data$estimate)
+      .data$conf.low <- exp(.data$conf.low)
+      .data$conf.high <- exp(.data$conf.high)
+  }
+
+  if (!conf.int) {
+    .data <- .data[-which(names(.data) %in% c("conf.low", "conf.high"))]
+  }
+
+  attributes(.data$study) <- NULL
+
+  .data
 }

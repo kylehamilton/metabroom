@@ -1,12 +1,22 @@
 Package: metabroom
-Title: What the Package Does (one line, title case)
+Title: broom methods for metafor::rma models
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: person("Malcolm", "Barrett", 
+    email = "malcolmbarrett@gmail.com", 
+    role = c("aut", "cre"))
+Maintainer: Malcolm Barrett <malcolmbarrett@gmail.com>
+Description: These methods were originally part of the [tidymeta::] 
+  by Malcolm. Charles wanted to learn about dev and had some tweaks 
+  to make to the glance function. She's bundled Malcolm's functions 
+  so they can take a look and see what needs doing to get this 
+  ported into the [broom::] package proper.
 Depends: R (>= 3.4.2)
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1.9000
 Imports: 
     magrittr
+Suggests: 
+    testthat
