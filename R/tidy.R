@@ -24,7 +24,6 @@
 #' @rdname tidiers
 tidy.rma <- function(x, conf.int = TRUE, exponentiate = FALSE,
                          include_studies = TRUE, measure = "GEN", ...) {
-  if (!inherits(x, "rma.uni")) stop("`x` must be of class `rma.uni`")
 
   estimates <- metafor::escalc(yi = x$yi.f, vi = x$vi.f, measure = measure) %>%
     metafor2df()
