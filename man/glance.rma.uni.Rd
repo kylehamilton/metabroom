@@ -21,9 +21,7 @@ including estimates of heterogenity and model fit.
 }
 \examples{
 
-library(broom)
-library(metafor)
-rma(yi = lnes, sei = selnes, slab = study_name, data = iud_cxca) \%>\%
+example_ma \%>\%
   glance()
 
 }

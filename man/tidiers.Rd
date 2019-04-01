@@ -30,9 +30,8 @@ a \code{data.frame}
 These methods tidy the results of meta-analysis objects
 }
 \examples{
-library(broom)
-library(metafor)
-rma(yi = lnes, sei = selnes, slab = study_name, data = iud_cxca) \%>\%
+
+example_ma \%>\%
   tidy()
 
 }
