@@ -18,7 +18,7 @@
 #'   augment()
 #'
 #' @rdname augmenters
-augment.rma.uni <- function(x, ...) {
+augment.rma <- function(x, ...) {
   blup0 <- purrr::possibly(metafor::blup, NULL)
   residuals0 <- purrr::possibly(stats::residuals, NULL)
   influence0 <- purrr::possibly(stats::influence, NULL)

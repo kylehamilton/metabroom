@@ -17,7 +17,7 @@
 #' rma(yi = lnes, sei = selnes, slab = study_name, data = iud_cxca) %>%
 #'   glance()
 #'
-glance.rma.uni <- function(x, ...) {
+glance.rma <- function(x, ...) {
   fit_stats <- metafor::fitstats(x)
   fit_stats <- fit_stats %>%
     t() %>%
