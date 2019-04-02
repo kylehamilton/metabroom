@@ -1,13 +1,9 @@
-#' @import broom
-#' @import dplyr
-NULL
-
+#' @importFrom generics tidy glance augment
+#' @export
+generics::tidy
 
 #' @export
-broom::tidy
+generics::glance
 
 #' @export
-broom::glance
-
-#' @export
-broom::augment
+generics::augment

@@ -12,9 +12,7 @@
 #'
 #' @examples
 #'
-#' library(broom)
-#' library(metafor)
-#' rma(yi = lnes, sei = selnes, slab = study_name, data = iud_cxca) %>%
+#' example_ma %>%
 #'   glance()
 #'
 glance.rma <- function(x, ...) {
@@ -28,9 +26,6 @@ glance.rma <- function(x, ...) {
     k = x$k,
     measure = x$measure,
     method = x$method,
-    effect = as.numeric(x$beta),
-    ci.lb = x$ci.lb,
-    ci.ub = x$ci.ub,
     i.squared = x$I2,
     h.squared = x$H2,
     tau.squared = x$tau2,
@@ -42,5 +37,5 @@ glance.rma <- function(x, ...) {
     fit_stats
   ) %>%
     tibble::rownames_to_column("remove") %>%
-    select(-remove)
+    dplyr::select(-remove)
 }
