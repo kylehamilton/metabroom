@@ -14,13 +14,19 @@ Description: These methods were originally part of the [tidymeta::]
   to make to the glance function. She's bundled Malcolm's functions 
   so they can take a look and see what needs doing to get this 
   ported into the [broom::] package proper.
-Depends: R (>= 3.4.2)
+Depends: R (>= 3.0.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1.9000
+RoxygenNote: 6.1.1
 Imports: 
-    magrittr
+    magrittr,
+    generics,
+    metafor,
+    stringr,
+    tibble,
+    dplyr,
+    purrr
 Suggests: 
     testthat

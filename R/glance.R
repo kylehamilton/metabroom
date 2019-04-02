@@ -12,9 +12,7 @@
 #'
 #' @examples
 #'
-#' library(broom)
-#' library(metafor)
-#' rma(yi = lnes, sei = selnes, slab = study_name, data = iud_cxca) %>%
+#' example_ma %>%
 #'   glance()
 #'
 glance.rma.uni <- function(x, ...) {
@@ -42,5 +40,5 @@ glance.rma.uni <- function(x, ...) {
     fit_stats
   ) %>%
     tibble::rownames_to_column("remove") %>%
-    select(-remove)
+    dplyr::select(-remove)
 }
