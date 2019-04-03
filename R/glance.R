@@ -22,7 +22,8 @@ glance.rma <- function(x, ...) {
     as.data.frame()
   names(fit_stats) <-
     stringr::str_replace(names(fit_stats), "\\:", "")
-  data.frame(
+
+  list(
     k = x$k,
     measure = x$measure,
     method = x$method,
@@ -36,6 +37,10 @@ glance.rma <- function(x, ...) {
     QM_p = x$QMp,
     fit_stats
   ) %>%
-    tibble::rownames_to_column("remove") %>%
-    dplyr::select(-remove)
+    # get rid of null values
+    purrr::discard(is.null) %>%
+    # change to tibble with correct column and row names
+    as.data.frame() %>%
+    tibble::as_tibble() %>%
+    tibble::remove_rownames()
 }
