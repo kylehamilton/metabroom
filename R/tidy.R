@@ -62,6 +62,7 @@ tidy.rma <- function(x, conf.int = TRUE, exponentiate = FALSE,
   }
 
   attributes(.data$study) <- NULL
+  rownames(.data) <- seq_len(nrow(.data))
 
   .data
 }
