@@ -34,7 +34,7 @@ tidy.rma <- function(x, conf.int = TRUE, exponentiate = FALSE,
   estimates <- tibble::as_tibble(estimates)
 
   betas <- x$beta
-  if (nrow(betas) > 1) {
+  if (!is.null(nrow(betas)) && nrow(betas) > 1) {
     # get estimate type and fix spelling
     study <- rownames(betas)
     swap <- grepl("intrcpt", study)
